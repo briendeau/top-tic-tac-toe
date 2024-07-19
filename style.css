@@ -1,0 +1,32 @@
+body {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#sidebar {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  display: grid;
+  position: relative;
+  /* left: 160px;
+  top: 40px; */
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  gap: 4px;
+}
+
+#main div {
+  display: flex;
+  background-color: rgb(4, 61, 56);
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+}
