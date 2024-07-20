@@ -37,7 +37,11 @@ function gameBoard() {
     [2, 4, 6],
   ];
 
-  return { board, winningCombinations };
+  isBoardFull = (board) => {
+    return board.every((cell) => cell !== ""); // Every cell not empty
+  };
+
+  return { board, winningCombinations, isBoardFull };
 }
 let board = gameBoard();
 // players object
@@ -54,21 +58,30 @@ function createPlayer(name, marker) {
       console.log(cell);
       cell.textContent = marker;
       board.board[position] = position;
+      console.log(`board after player turn ${board.board}`);
       playerChoices.push(position);
+      console.log(playerChoices);
       // we put the cell number into a new array for tracking and comparison with the winningCombos
       // console.log(playerChoices);
     }
   };
 
   let computerTurn = () => {
-    const randomNumber = Math.floor(Math.random() * 9);
-    if (board.board[randomNumber] === "") {
-      let cell = document.querySelector(`[data-index="${randomNumber}"]`);
-      cell.textContent = marker;
-      board.board[randomNumber] = randomNumber;
-      compChoices.push(randomNumber);
-      // we put the cell number into a new array for tracking and comparison with the winningCombos
-      // console.log(compChoices);
+    let foundEmptyPosition = false;
+    console.log(board.isBoardFull(board.board));
+    while (!foundEmptyPosition && !board.isBoardFull(board.board)) {
+      const randomNumber = Math.floor(Math.random() * 9);
+      if (board.board[randomNumber] === "") {
+        let cell = document.querySelector(`[data-index="${randomNumber}"]`);
+        cell.textContent = marker;
+        board.board[randomNumber] = randomNumber.toString();
+        console.log(`board after computer turn ${board.board}`);
+        compChoices.push(randomNumber.toString());
+        console.log(compChoices);
+        foundEmptyPosition = true; // exit loop once empty board spot is found.
+        // we put the cell number into a new array for tracking and comparison with the winningCombos
+        // console.log(compChoices);
+      }
     }
   };
 
